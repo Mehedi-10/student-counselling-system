@@ -20,10 +20,11 @@ from scs.views import (UniversityView, CollegeView, DepartmentView, FacultyMembe
                        StudentView, ContactView, EthnicityView, EducationalBackgroundView,
                        DissertationView, TestScoreView, AwardView, TrainingWorkshopView,
                        SkillView, WorkExperienceView, AcknowledgementFormView, ReferenceView,
-                       VolunteerActivityView)
+                       VolunteerActivityView, LoginView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', LoginView.as_view(), name='login'),
     path('universities/', UniversityView.as_view(), name='universities'),
     path('colleges/', CollegeView.as_view(), name='colleges'),
     path('departments/', DepartmentView.as_view(), name='departments'),

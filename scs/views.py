@@ -15,6 +15,19 @@ def parse_json(request):
     except json.JSONDecodeError:
         return None
 
+@method_decorator(csrf_exempt, name='dispatch')
+class LoginView(View):
+    def post(self, request):
+        data = json.loads(request.body)
+        email = data.get('email')
+        password = data.get('password')
+        if email=="teacher@gmail.com" or email=="student@gmail.com":
+            request.session['user_type']=email.split('@')[0]
+            return JsonResponse({
+                'message': 'Login successful',
+            }, status=200)
+        else:
+            return JsonResponse({'error': 'Invalid credentials'}, status=400)
 
 @method_decorator(csrf_exempt, name='dispatch')
 class UniversityView(View):
