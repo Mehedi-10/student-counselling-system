@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'scs'
+    'scs',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +49,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
 ]
 
 ROOT_URLCONF = 'scsBackend.urls'
@@ -67,6 +70,12 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+# Or specify allowed origins
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',  # The standard port for React development
+    'http://127.0.0.1:3000',  # Also localhost
 ]
 
 WSGI_APPLICATION = 'scsBackend.wsgi.application'

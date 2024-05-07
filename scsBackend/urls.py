@@ -16,30 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from scs.views import (UniversityView, CollegeView, DepartmentView, FacultyMemberView,
-                       StudentView, ContactView, EthnicityView, EducationalBackgroundView,
-                       DissertationView, TestScoreView, AwardView, TrainingWorkshopView,
-                       SkillView, WorkExperienceView, AcknowledgementFormView, ReferenceView,
-                       VolunteerActivityView, LoginView)
+
+from scs.views import user_register, user_login,home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', LoginView.as_view(), name='login'),
-    path('universities/', UniversityView.as_view(), name='universities'),
-    path('colleges/', CollegeView.as_view(), name='colleges'),
-    path('departments/', DepartmentView.as_view(), name='departments'),
-    path('faculty_members/', FacultyMemberView.as_view(), name='faculty_members'),
-    path('students/', StudentView.as_view(), name='students'),
-    path('contacts/', ContactView.as_view(), name='contacts'),
-    path('ethnicities/', EthnicityView.as_view(), name='ethnicities'),
-    path('educational_backgrounds/', EducationalBackgroundView.as_view(), name='educational_backgrounds'),
-    path('dissertations/', DissertationView.as_view(), name='dissertations'),
-    path('test_scores/', TestScoreView.as_view(), name='test_scores'),
-    path('awards/', AwardView.as_view(), name='awards'),
-    path('training_workshops/', TrainingWorkshopView.as_view(), name='training_workshops'),
-    path('skills/', SkillView.as_view(), name='skills'),
-    path('work_experiences/', WorkExperienceView.as_view(), name='work_experiences'),
-    path('acknowledgement_forms/', AcknowledgementFormView.as_view(), name='acknowledgement_forms'),
-    path('references/', ReferenceView.as_view(), name='references'),
-    path('volunteer_activities/', VolunteerActivityView.as_view(), name='volunteer_activities'),
+    path('register/', user_register, name='register'),
+    path('login/', user_login, name='login'),
+    path('', home, name=''),
+
 ]
