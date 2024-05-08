@@ -8,6 +8,8 @@ from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from .models import User
 from .serializers import UserSerializer
+from .swagger_auto_schemas import swagger_register_user, swagger_login_user
+
 
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
@@ -16,12 +18,7 @@ def get_tokens_for_user(user):
         'access': str(refresh.access_token),
     }
 
-@swagger_auto_schema(
-    method='post',
-    request_body=UserSerializer,
-    responses={201: openapi.Response('Registration Success', UserSerializer)},
-    operation_description="Register a new user"
-)
+@swagger_register_user()
 @api_view(['POST'])
 def register_view(request):
     if request.method == 'POST':
@@ -34,22 +31,7 @@ def register_view(request):
                 'user_type': 'student' if user.is_student else 'teacher'
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-@swagger_auto_schema(
-    method='post',
-    request_body=openapi.Schema(
-        type=openapi.TYPE_OBJECT,
-        required=['username', 'password'],
-        properties={
-            'username': openapi.Schema(type=openapi.TYPE_STRING, description='Username'),
-            'password': openapi.Schema(type=openapi.TYPE_STRING, description='Password'),
-        },
-    ),
-    responses={
-        200: openapi.Response('Login Success'),
-        401: openapi.Response('Unauthorized')
-    },
-    operation_description="Authenticate a user and retrieve a token"
-)
+@swagger_login_user()
 @api_view(['POST'])
 def login_view(request):
     if request.method == 'POST':
