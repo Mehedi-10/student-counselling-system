@@ -3,6 +3,7 @@ from functools import wraps
 from ..models import User
 from datetime import datetime, timedelta
 
+
 def token_required(f):
     @wraps(f)
     def decorated(request, *args, **kwargs):
