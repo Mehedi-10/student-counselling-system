@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .StudentProfile.student_profile import *
-from .models import User, Student, Teacher
+
+from scs.scs_models.student_profile_models import *
+from scs.models import *
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Student)

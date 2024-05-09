@@ -314,4 +314,59 @@ class DissertationInformation(models.Model):
                 else "No Dissertations")
 
 
+class SocialMedia(models.Model):
+    platform_name = models.CharField(max_length=100, null=True, blank=True)
+    url = models.URLField(null=True, blank=True)
 
+    def __str__(self):
+        return f"{self.platform_name}: {self.url}" if self.platform_name else "Social Media Entry"
+
+
+class SocialMediaInformation(models.Model):
+    social_media_accounts = models.ManyToManyField(SocialMedia, blank=True)
+
+    def __str__(self):
+        return ', '.join([str(account) for account in
+                          self.social_media_accounts.all()]) if self.social_media_accounts.all() else "No Social Media Information"
+
+
+class VolunteerActivity(models.Model):
+    name_of_organization = models.CharField(max_length=255, null=True, blank=True)
+    designation = models.CharField(max_length=255, null=True, blank=True)
+    start_date = models.DateField(null=True, blank=True)
+    end_date = models.DateField(null=True, blank=True)
+    role_description = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.name_of_organization} - {self.designation}" if self.name_of_organization and self.designation else "Volunteer Activity"
+
+
+class VolunteerInformation(models.Model):
+    activities = models.ManyToManyField(VolunteerActivity, blank=True)
+
+    def __str__(self):
+        return ', '.join([str(activity) for activity in
+                          self.activities.all()]) if self.activities.all() else "No Volunteer Activities"
+
+
+class Reference(models.Model):
+    title = models.CharField(max_length=50, null=True, blank=True)
+    first_name = models.CharField(max_length=100, null=True, blank=True)
+    middle_name = models.CharField(max_length=100, null=True, blank=True)
+    last_name = models.CharField(max_length=100, null=True, blank=True)
+    name_of_organization = models.CharField(max_length=255, null=True, blank=True)
+    designation = models.CharField(max_length=255, null=True, blank=True)
+    contact_number = models.CharField(max_length=20, null=True, blank=True)
+    email_address = models.EmailField(null=True, blank=True)
+    relationship = models.CharField(max_length=255, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.title} {self.first_name} {self.last_name} - {self.relationship}"
+
+
+class ReferenceInformation(models.Model):
+    references = models.ManyToManyField(Reference, blank=True)
+
+    def __str__(self):
+        return ', '.join(
+            [str(reference) for reference in self.references.all()]) if self.references.all() else "No References"

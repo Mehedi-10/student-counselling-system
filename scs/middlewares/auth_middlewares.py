@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from functools import wraps
-from ..models import User
+from ..scs_models import User
 from datetime import datetime, timedelta
 
 
