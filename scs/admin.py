@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
+from scs.scs_models.admin_controlled_models import *
 from scs.scs_models.student_profile_models import *
 from scs.models import *
 
@@ -34,3 +35,11 @@ admin.site.register(Publication)
 admin.site.register(PublicationInformation)
 admin.site.register(Dissertation)
 admin.site.register(DissertationInformation)
+
+
+admin.site.register(University)
+admin.site.register(College)
+admin.site.register(Campus)
+admin.site.register(Department)
+admin.site.register(FacultyMember)
+admin.site.register(Funding)

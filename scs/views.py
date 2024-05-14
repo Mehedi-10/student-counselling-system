@@ -5,7 +5,6 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .models import User
 from .permissions import IsTeacherOrReadOnly
 from .serializers import *
 from .swagger_auto_schemas import *
@@ -79,7 +78,16 @@ def university_detail_get(request, pk):
         return Response({'message': 'The university does not exist'}, status=status.HTTP_404_NOT_FOUND)
     serializer = UniversitySerializer(university)
     return Response(serializer.data)
-
+@swagger_post_serializer(UniversitySerializer)
+@api_view(['POST'])
+@permission_classes([IsTeacherOrReadOnly])
+def university_create(request):
+    if request.method == 'POST':
+        serializer = UniversitySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @swagger_detail_put_delete_serializer(UniversitySerializer)
 @api_view(['PUT', 'DELETE'])
@@ -124,6 +132,16 @@ def college_detail_get(request, pk):
     serializer = CollegeSerializer(college)
     return Response(serializer.data)
 
+@swagger_post_serializer(CollegeSerializer)
+@api_view(['POST'])
+@permission_classes([IsTeacherOrReadOnly])
+def college_create(request):
+    if request.method == 'POST':
+        serializer = CollegeSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @swagger_detail_put_delete_serializer(CollegeSerializer)
 @api_view(['PUT', 'DELETE'])
@@ -167,6 +185,16 @@ def campus_detail_get(request, pk):
     serializer = CampusSerializer(campus)
     return Response(serializer.data)
 
+@swagger_post_serializer(CampusSerializer)
+@api_view(['POST'])
+@permission_classes([IsTeacherOrReadOnly])
+def campus_create(request):
+    if request.method == 'POST':
+        serializer = CampusSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @swagger_detail_put_delete_serializer(CampusSerializer)
 @api_view(['PUT', 'DELETE'])
@@ -210,7 +238,16 @@ def department_detail_get(request, pk):
     serializer = DepartmentSerializer(department)
     return Response(serializer.data)
 
-
+@swagger_post_serializer(DepartmentSerializer)
+@api_view(['POST'])
+@permission_classes([IsTeacherOrReadOnly])
+def department_create(request):
+    if request.method == 'POST':
+        serializer = DepartmentSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 @swagger_detail_put_delete_serializer(DepartmentSerializer)
 @api_view(['PUT', 'DELETE'])
 @permission_classes([IsTeacherOrReadOnly])
@@ -253,7 +290,16 @@ def faculty_member_detail_get(request, pk):
     serializer = FacultyMemberSerializer(faculty_member)
     return Response(serializer.data)
 
-
+@swagger_post_serializer(FacultyMemberSerializer)
+@api_view(['POST'])
+@permission_classes([IsTeacherOrReadOnly])
+def faculty_create(request):
+    if request.method == 'POST':
+        serializer = FacultyMemberSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 @swagger_detail_put_delete_serializer(FacultyMemberSerializer)
 @api_view(['PUT', 'DELETE'])
 @permission_classes([IsTeacherOrReadOnly])
@@ -296,7 +342,16 @@ def funding_detail_get(request, pk):
     serializer = FundingSerializer(funding)
     return Response(serializer.data)
 
-
+@swagger_post_serializer(FundingSerializer)
+@api_view(['POST'])
+@permission_classes([IsTeacherOrReadOnly])
+def funding_create(request):
+    if request.method == 'POST':
+        serializer = FundingSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 @swagger_detail_put_delete_serializer(FundingSerializer)
 @api_view(['PUT', 'DELETE'])
 @permission_classes([IsTeacherOrReadOnly])
@@ -316,3 +371,23 @@ def funding_detail_modify(request, pk):
     if request.method == 'DELETE':
         funding.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@swagger_auto_schema(method='get', responses={200: BiographicInformationSerializer(many=True)})
+@swagger_auto_schema(method='post', request_body=BiographicInformationSerializer())
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
+def biographic_information(request):
+    if request.method == 'GET':
+        if request.user.is_teacher:
+            biographic_info = BiographicInformation.objects.all()
+        else:
+            biographic_info = BiographicInformation.objects.filter(user=request.user)
+        serializer = BiographicInformationSerializer(biographic_info, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = BiographicInformationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)  # Ensure user is set correctly
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
