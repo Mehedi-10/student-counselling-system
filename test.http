@@ -1,0 +1,28 @@
+###
+
+# curl -X POST "http://yourdomain.com/api/universities/"
+#     -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxNTg2NzcwNCwiaWF0IjoxNzE1NzgxMzA0LCJqdGkiOiIxOGI4MDVlMjUwNmU0NThiYTVhMjBiMjVhOThhMmQ0NiIsInVzZXJfaWQiOjR9.qavDc-zL50pwRAdbJVfYNhs4ysp51CJy_aAUjeTbE9s"
+#     -H "Content-Type: application/json"
+#     -d '{
+#           "name": "Springfield University",
+#           "web_address": "http://www.springfielduniversity.edu",
+#           "country": "USA",
+#           "state": "Springfield",
+#           "statement": "A place of learning and innovation.",
+#           "status": "Active"
+#         }'
+POST http://127.0.0.1:8000/universities/new/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1Nzg4Mzk4LCJpYXQiOjE3MTU3ODQ3OTgsImp0aSI6IjYyZDZiYTU0ODQzYjQzMzViZDcyYjQwMjgyZTk5ZjdiIiwidXNlcl9pZCI6NX0.kSgZfN3QqG3pVMrrOi2RjdGhmQLp8sKBWKW_KjzAflg
+Content-Type: application/json
+
+{
+  "name": "Springfield University",
+  "web_address": "http://www.springfielduniversity.edu",
+  "country": "USA",
+  "state": "Springfield",
+  "statement": "A place of learning and innovation.",
+  "status": "Active"
+}
+
+###
+
