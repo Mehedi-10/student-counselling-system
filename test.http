@@ -1,28 +1,98 @@
-###
+@host = {{host}}
+@access_token = {{access_token}}
 
-# curl -X POST "http://yourdomain.com/api/universities/"
-#     -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcxNTg2NzcwNCwiaWF0IjoxNzE1NzgxMzA0LCJqdGkiOiIxOGI4MDVlMjUwNmU0NThiYTVhMjBiMjVhOThhMmQ0NiIsInVzZXJfaWQiOjR9.qavDc-zL50pwRAdbJVfYNhs4ysp51CJy_aAUjeTbE9s"
-#     -H "Content-Type: application/json"
-#     -d '{
-#           "name": "Springfield University",
-#           "web_address": "http://www.springfielduniversity.edu",
-#           "country": "USA",
-#           "state": "Springfield",
-#           "statement": "A place of learning and innovation.",
-#           "status": "Active"
-#         }'
-POST http://127.0.0.1:8000/universities/new/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE1Nzg4Mzk4LCJpYXQiOjE3MTU3ODQ3OTgsImp0aSI6IjYyZDZiYTU0ODQzYjQzMzViZDcyYjQwMjgyZTk5ZjdiIiwidXNlcl9pZCI6NX0.kSgZfN3QqG3pVMrrOi2RjdGhmQLp8sKBWKW_KjzAflg
+### Example POST Request to Create a University
+POST {{host}}/universities/new/
+Authorization: Bearer {{access_token}}
 Content-Type: application/json
 
 {
-  "name": "Springfield University",
-  "web_address": "http://www.springfielduniversity.edu",
-  "country": "USA",
-  "state": "Springfield",
-  "statement": "A place of learning and innovation.",
-  "status": "Active"
+    "name": "Springfield University",
+    "web_address": "http://www.springfielduniversity.edu",
+    "country": "USA",
+    "state": "Springfield",
+    "statement": "A place of learning and innovation.",
+    "status": "Active"
 }
 
-###
+### Example POST Request to Create a College
+POST {{host}}/colleges/new/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+    "name": "Liberal Arts College",
+    "university": 1,
+    "web_address": "http://www.liberalarts.edu",
+    "address": "123 College Lane, Springfield",
+    "statement": "Dedicated to developing critical thinkers.",
+    "status": "Active"
+}
+
+### Example POST Request to Create a Campus
+POST {{host}}/campuses/new/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+    "name": "Springfield Downtown Campus",
+    "web_address": "http://www.downtowncampus.edu",
+    "country": "USA",
+    "state": "Springfield",
+    "city": "Downtown",
+    "statement": "Central campus with state-of-the-art facilities.",
+    "status": "Active"
+}
+
+### Example POST Request to Create a Department
+POST {{host}}/departments/new/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+    "name": "Department of Computer Science",
+    "college": 1,
+    "campus": 1,
+    "web_address": "http://www.csdepartment.edu",
+    "address": "1 Technology Drive, Springfield",
+    "statement": "Leading innovation in technology.",
+    "status": "Active"
+}
+
+### Example POST Request to Create a Faculty Member
+POST {{host}}/faculty_members/new/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "johndoe@csdepartment.edu",
+    "department": 1,
+    "campus": 1,
+    "college": 1,
+    "web_address": "http://www.johndoefaculty.edu",
+    "address": "Faculty Quarters, 1 Education Blvd, Springfield",
+    "statement": "Committed to teaching and research excellence.",
+    "faculty_type": "Tenured",
+    "status": "Active"
+}
+
+### Example POST Request to Create Funding
+POST {{host}}/fundings/new/
+Authorization: Bearer {{access_token}}
+Content-Type: application/json
+
+{
+    "name": "Innovation in Artificial Intelligence",
+    "start_date": "2024-01-01",
+    "end_date": "2024-12-31",
+    "funding_type": "Research Grant",
+    "number_of_positions": 5,
+    "department": 1,
+    "campus": 1,
+    "college": 1,
+    "statement": "Funding for cutting-edge research in AI.",
+    "status": "Active"
+}
+
 
